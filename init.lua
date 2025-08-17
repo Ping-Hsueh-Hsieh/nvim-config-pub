@@ -1,0 +1,6 @@
+require("settings")
+require("lazyconf")
+require("maps")
+require("themes.color")
+require("file_ext")
+require("commands")

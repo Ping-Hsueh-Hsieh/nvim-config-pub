@@ -1,0 +1,7 @@
+-- require("themes.kanagawa")
+-- require("themes.doom-one")
+-- require("themes.rose-pine")
+-- require("themes.tokyonight")
+require("themes.cyberdream")
+-- require("themes.onedark")
+-- require("themes.vscode")

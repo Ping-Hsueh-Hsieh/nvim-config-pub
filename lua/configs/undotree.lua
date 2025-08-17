@@ -1,0 +1,76 @@
+
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+--=================================================
+--Options:
+
+-- Window layout
+-- style 1
+-- +----------+------------------------+
+-- |          |                        |
+-- |          |                        |
+-- | undotree |                        |
+-- |          |                        |
+-- |          |                        |
+-- +----------+                        |
+-- |          |                        |
+-- |   diff   |                        |
+-- |          |                        |
+-- +----------+------------------------+
+-- Style 2
+-- +----------+------------------------+
+-- |          |                        |
+-- |          |                        |
+-- | undotree |                        |
+-- |          |                        |
+-- |          |                        |
+-- +----------+------------------------+
+-- |                                   |
+-- |   diff                            |
+-- |                                   |
+-- +-----------------------------------+
+-- Style 3
+-- +------------------------+----------+
+-- |                        |          |
+-- |                        |          |
+-- |                        | undotree |
+-- |                        |          |
+-- |                        |          |
+-- |                        +----------+
+-- |                        |          |
+-- |                        |   diff   |
+-- |                        |          |
+-- +------------------------+----------+
+-- Style 4
+-- +-----------------------++----------+
+-- |                        |          |
+-- |                        |          |
+-- |                        | undotree |
+-- |                        |          |
+-- |                        |          |
+-- +------------------------+----------+
+-- |                                   |
+-- |                            diff   |
+-- |                                   |
+-- +-----------------------------------+
+
+vim.g.undotree_WindowLayout = 2
+vim.g.undotree_ShortIndicators = 1
+vim.g.undotree_SplitWidth = 50
+vim.g.undotree_DiffpanelHeight = 10
+vim.g.undotree_DiffAutoOpen = 1
+vim.g.undotree_SetFocusWhenToggle = 0
+vim.g.undotree_TreeNodeShape = "*"
+vim.g.undotree_TreeVertShape = "|"
+vim.g.undotree_TreeSplitShape = "/"
+vim.g.undotree_TreeReturnShape = "'"
+-- vim.g.undotree_DiffCommand = "diff" - this is for powershell.exe
+vim.g.undotree_DiffCommand = "FC" -- this is for cmd.exe
+vim.g.undotree_RelativeTimestamp = 1
+vim.g.undotree_HighlightChangedText = 1
+vim.g.undotree_HighlightChangedWithSign = 1
+vim.g.undotree_HighlightSyntaxAdd = "DiffAdd"
+vim.g.undotree_HighlightSyntaxChange = "DiffChange"
+vim.g.undotree_HighlightSyntaxDel = "DiffDelete"
+vim.g.undotree_HelpLine = 1
+vim.g.undotree_CursorLine = 1
