@@ -68,10 +68,15 @@ M.create_prompt = function (bufname, use_curr_path)
     vim.cmd("tabnew")
 
     -- create the zsh instance
-    local term_id = vim.fn.termopen("zsh", {
+    local term_id = vim.fn.jobstart({ "zsh" }, {
         on_exit = on_exit,
         cwd=cwd,
+        term=true,
     })
+    -- local term_id = vim.fn.termopen("zsh", {
+    --     on_exit = on_exit,
+    --     cwd=cwd,
+    -- })
     -- print(string.format("creating terminal with id: %d", term_id))
     vim.b.terminal_job_id = term_id
 

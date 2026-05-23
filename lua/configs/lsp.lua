@@ -5,7 +5,6 @@
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
         -- enable inlay hints
         -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -28,7 +27,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
+        map("K", function()
+            vim.lsp.buf.hover({border = 'rounded'})
+        end, "Hover Documentation")
         map("<leader>k", vim.lsp.buf.signature_help, "Signature help")
         map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
         map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -50,8 +51,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-local nvim_lsp = require("lspconfig")
 
 -- NOTE: rust-analyzer is set up by `rustaceanvim`
 
@@ -98,19 +97,6 @@ local pyright_opt = {
         },
     },
     capabilities = capabilities,
-}
-
-local ruff_opt = {
-    autostart=false,
-    trace = "messages",
-    init_options = {
-        settings = {
-            logLevel = "debug",
-            -- format = {
-            --     preview = true,
-            -- },
-        },
-    },
 }
 
 local clangd_opt = {
@@ -163,15 +149,9 @@ local lua_ls_opt = {
 local html_opt = {
 }
 
-local matlab_ls_opt = {
-    cmd = {"node", "C:/Users/HPH/software/MATLAB-language-server/out/index.js", "--stdio"},
-    settings = {
-        MATLAB = {
-          indexWorkspace = false,
-          installPath = "C:/Program Files/MATLAB/R2023b/",
-          matlabConnectionTiming = "onStart",
-          telemetry = false,
-        }
+local sourcekit_opt = {
+    filetypes = {
+        "swift",
     },
 }
 
@@ -205,12 +185,13 @@ local settings = {
         name = "html",
         opt = html_opt,
     },
-    -- {
-    --     name = "matlab_ls",
-    --     opt = matlab_ls_opt,
-    -- },
+    {
+        name = "sourcekit",
+        opt = sourcekit_opt,
+    },
 }
 
 for _, setting in ipairs(settings) do
-    nvim_lsp[setting.name].setup(setting.opt)
+    vim.lsp.config(setting.name,setting.opt)
+    vim.lsp.enable(setting.name)
 end

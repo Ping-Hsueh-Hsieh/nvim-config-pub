@@ -24,7 +24,8 @@ require("lazy").setup({
     },
     {
         "nvim-tree/nvim-web-devicons",
-        lazy = true,
+        lazy = false,
+        build = ':TSUpdate'
     },
 
     ------------------------------
@@ -94,12 +95,6 @@ require("lazy").setup({
     ------------------------------
     --- essentials
     ------------------------------
-    {
-        "numToStr/Comment.nvim",
-        config = function()
-            require("configs.comment")
-        end,
-    },
     {
         "folke/todo-comments.nvim",
         event = "VimEnter",
@@ -216,7 +211,7 @@ require("lazy").setup({
         dependencies = {
             "L3MON4D3/LuaSnip",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
+            -- "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
             "hrsh7th/vim-vsnip",
