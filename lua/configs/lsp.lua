@@ -5,7 +5,6 @@
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
-
         -- enable inlay hints
         -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
         -- if client ~= nil then
@@ -28,7 +27,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
         map("K", function()
-            vim.lsp.buf.hover({border = 'rounded'})
+            vim.lsp.buf.hover({ border = "rounded" })
         end, "Hover Documentation")
         map("<leader>k", vim.lsp.buf.signature_help, "Signature help")
         map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
@@ -42,7 +41,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             -- vim.lsp.buf.format({ async = true })
             require("conform").format({ lsp_fallback = true, bufnr = ev.buf, async = true })
         end, "lsp format")
-        vmap("=", function ()
+        vmap("=", function()
             -- vim.lsp.buf.format({ bufnr=ev.buf, async = true })
             require("conform").format({ lsp_fallback = true, bufnr = ev.buf, async = true })
         end, "Visual Selection Format")
@@ -85,7 +84,7 @@ local texlab_opt = {
 }
 
 local pyright_opt = {
-    autostart=false,
+    autostart = false,
     settings = {
         pyright = {
             typeCheckingMode = "standard", -- ["off", "basic", "standard", "strict"]
@@ -98,6 +97,19 @@ local pyright_opt = {
     },
     capabilities = capabilities,
 }
+
+-- local ruff_opt = {
+--     autostart=false,
+--     trace = "messages",
+--     init_options = {
+--         settings = {
+--             logLevel = "debug",
+--             -- format = {
+--             --     preview = true,
+--             -- },
+--         },
+--     },
+-- }
 
 local clangd_opt = {
     cmd = { "clangd", "--completion-style=detailed" },
@@ -146,14 +158,15 @@ local lua_ls_opt = {
     capabilities = capabilities,
 }
 
-local html_opt = {
-}
+local html_opt = {}
 
 local sourcekit_opt = {
     filetypes = {
         "swift",
     },
 }
+
+local basedpyright_opt = {}
 
 ---@class Setting
 ---@field name string
@@ -189,9 +202,13 @@ local settings = {
         name = "sourcekit",
         opt = sourcekit_opt,
     },
+    {
+        name = "basedpyright",
+        opt = basedpyright_opt,
+    },
 }
 
 for _, setting in ipairs(settings) do
-    vim.lsp.config(setting.name,setting.opt)
+    vim.lsp.config(setting.name, setting.opt)
     vim.lsp.enable(setting.name)
 end
